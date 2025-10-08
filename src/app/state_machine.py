@@ -1,4 +1,5 @@
 from enum import Enum
+import asyncio
 from src.drivers.clock import tick_ms
 from src.app.led import LedMode
 
@@ -129,6 +130,11 @@ class StateMachine:
         # Guardar estados anteriores para detectar bordes
         self.pilot_ok_prev = pilot_ok
         self.fault_prev = fault
+
+    async def run(self):
+        while True:
+            self.step()
+            await asyncio.sleep(0.01)  # Ejecutar cada 10ms
     
     def get_state(self) -> State:
         return self.state
