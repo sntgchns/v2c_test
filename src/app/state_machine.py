@@ -36,7 +36,7 @@ class StateMachine:
         
     def _enter_state(self, new_state: State):
         if new_state != self.state:
-            prev_state_name = self.previous_state.name if self.previous_state is not None else "Arranque"
+            prev_state_name = "Arranque" if self.state is None else self.state.name
             self.previous_state = self.state
             self.state = new_state
             print(f"Estado: {prev_state_name} -> {self.state.name}")
@@ -124,7 +124,7 @@ class StateMachine:
                 
         elif self.state == State.FAULT:
             # Regla 4 (continuación): Desde FAULT, al despejarse FAULT y con BTN → IDLE
-            if not fault and self.fault_prev:  # FAULT se despejó
+            if not fault:  # FAULT se despejó
                 if self._button_pressed():
                     self._enter_state(State.IDLE)
         
