@@ -17,8 +17,8 @@ class StateMachine:
         self.clock = clock
         
         # Estado actual
-        self.state = State.IDLE
-        self.previous_state = State.IDLE
+        self.state = None
+        self.previous_state = None
         
         # Debounce del botón
         self.btn_last_state = 0
@@ -36,9 +36,10 @@ class StateMachine:
         
     def _enter_state(self, new_state: State):
         if new_state != self.state:
+            prev_state_name = self.previous_state.name if self.previous_state is not None else "Arranque"
             self.previous_state = self.state
             self.state = new_state
-            print(f"Estado: {self.previous_state.name} -> {self.state.name}")
+            print(f"Estado: {prev_state_name} -> {self.state.name}")
             
             # Configurar salidas según el estado
             if self.state == State.IDLE:

@@ -28,6 +28,11 @@ class GPIO:
     
     def write_led(self, on: int):
         self.led = 1 if on else 0
+        # --- Magia de simulación ---
+        led_symbol = "●" if self.led else "○"
+        # Usamos end='\r' para que el cursor vuelva al inicio de la línea
+        # y la siguiente impresión la sobrescriba.
+        print(f"ESTADO DEL LED: {led_symbol}", end='\r', flush=True)
     
     # Simulación de entradas (para testing/CLI)
     def set_input(self, name: str, val: int):
